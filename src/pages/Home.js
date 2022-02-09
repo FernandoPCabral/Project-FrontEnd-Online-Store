@@ -25,7 +25,7 @@ class Home extends React.Component {
         </h2>
         <input type="text" />
         <div>
-          <h3>Categorias</h3>
+          <h3> Categorias </h3>
           { listCategories.map((categorie) => (
             <button type="button" data-testid="category" key={ categorie.id }>
               {categorie.name}
