@@ -18,6 +18,7 @@ class Home extends React.Component {
 
   render() {
     const { listCategories } = this.state;
+    console.log(listCategories);
     return (
       <div>
         <h2 data-testid="home-initial-message">
