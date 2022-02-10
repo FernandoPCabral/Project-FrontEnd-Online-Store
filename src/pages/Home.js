@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../services/api';
-import Cart from './Cart';
 
 class Home extends React.Component {
   constructor() {
