@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getCategories } from '../services/api';
 
 class Home extends React.Component {
@@ -18,7 +19,6 @@ class Home extends React.Component {
 
   render() {
     const { listCategories } = this.state;
-    console.log(listCategories);
     return (
       <div>
         <h2 data-testid="home-initial-message">
@@ -26,10 +26,17 @@ class Home extends React.Component {
         </h2>
         <input type="text" />
         <div>
+          <Link
+            data-testid="shopping-cart-button"
+            to="/Cart"
+          >
+            Carrinho
+            <input type="button" />
+          </Link>
           <h3> Categorias </h3>
-          { listCategories.map((categorie) => (
-            <button type="button" data-testid="category" key={ categorie.id }>
-              {categorie.name}
+          { listCategories.map((category) => (
+            <button type="button" data-testid="category" key={ category.id }>
+              {category.name}
             </button>
           ))}
         </div>
