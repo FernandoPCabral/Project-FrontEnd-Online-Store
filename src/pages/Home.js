@@ -34,9 +34,9 @@ class Home extends React.Component {
             <input type="button" />
           </Link>
           <h3> Categorias </h3>
-          { listCategories.map((categorie) => (
-            <button type="button" data-testid="category" key={ categorie.id }>
-              {categorie.name}
+          { listCategories.map((category) => (
+            <button type="button" data-testid="category" key={ category.id }>
+              {category.name}
             </button>
           ))}
         </div>
