@@ -5,6 +5,7 @@ import CategoriesList from '../components/CategoriesList';
 import SearchComponent from '../components/SearchComponent';
 import ProductList from '../components/ProductList';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import { addToCart } from '../services/localStorage';
 
 const stateStandart = {
   category: '',
@@ -17,6 +18,7 @@ class Home extends React.Component {
     this.state = {
       ...stateStandart,
       products: [],
+      arrCart: [],
     };
   }
 
@@ -82,14 +84,29 @@ class Home extends React.Component {
         <CategoriesList onCategoryChange={ this.handleCategorieChange } />
         { products.length < 1 ? <p>Nenhum produto foi encontrado</p>
           : products.map((product) => (
-            <ProductList
-              name="product"
-              key={ product.id }
-              title={ product.title }
-              thumbnail={ product.thumbnail }
-              price={ product.price }
-              idProduct={ product.id }
-            />
+            <div key={ product.id }>
+              <ProductList
+                name="product"
+                title={ product.title }
+                thumbnail={ product.thumbnail }
+                price={ product.price }
+                idProduct={ product.id }
+              />
+              <button
+                type="button"
+                id={ product.id }
+                onClick={ () => {
+                  const { arrCart } = this.state;
+                  this.setState({
+                    arrCart: [...arrCart, product],
+                  });
+                  console.log(arrCart);
+                  addToCart(arrCart);
+                } }
+              >
+                Adicionar ao Carrinho
+              </button>
+            </div>
           ))}
       </div>
     );
