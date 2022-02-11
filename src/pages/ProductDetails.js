@@ -1,4 +1,5 @@
 import React from 'react';
+import { setComment } from '../services/commentAPI';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -9,6 +10,7 @@ class ProductDetails extends React.Component {
       email: '',
       star: '',
       comment: '',
+      id: '',
     };
   }
 
@@ -18,7 +20,7 @@ class ProductDetails extends React.Component {
     const resp = await fetch(` https://api.mercadolibre.com/items/${id}`);
     const details = await resp.json();
     const { title, price, thumbnail, attributes } = details;
-    this.setState({ title, price, thumbnail, attributes });
+    this.setState({ title, price, thumbnail, attributes, id });
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -29,6 +31,13 @@ class ProductDetails extends React.Component {
 
   handleClick = (event) => {
     event.preventDefault();
+    const { email, star, comment, id } = this.state;
+    const newComment = {
+      email,
+      star,
+      comment,
+    };
+    setComment(id, newComment);
   }
 
   render() {

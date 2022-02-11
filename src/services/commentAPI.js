@@ -1,9 +1,9 @@
-const newComment = {
-  email: 'higor@hotmail.com',
-  star: '5',
-  comment: 'Muito bom! Compraria novamente',
-}
+const getAllComment = (productId) => JSON.parse(localStorage.getItem(productId));
 
-const setComment = (productId /*, newComment*/) => {
-  localStorage.setItem(productId, newComment);
-}
+const setComment = (productId, newComment) => {
+  const arr = getAllComment(productId) || [];
+  arr.push(newComment);
+  localStorage.setItem(productId, JSON.stringify(arr));
+};
+
+export { setComment, getAllComment };
