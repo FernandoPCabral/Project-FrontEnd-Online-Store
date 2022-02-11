@@ -1,5 +1,6 @@
 import React from 'react';
-import { setComment } from '../services/commentAPI';
+import { setComment, getAllComment } from '../services/commentAPI';
+import Comment from '../components/Comment';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -11,6 +12,7 @@ class ProductDetails extends React.Component {
       star: '',
       comment: '',
       id: '',
+      allComment: [],
     };
   }
 
@@ -20,7 +22,8 @@ class ProductDetails extends React.Component {
     const resp = await fetch(` https://api.mercadolibre.com/items/${id}`);
     const details = await resp.json();
     const { title, price, thumbnail, attributes } = details;
-    this.setState({ title, price, thumbnail, attributes, id });
+    const allComment = getAllComment(id) || [];
+    this.setState({ title, price, thumbnail, attributes, id, allComment });
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -41,7 +44,7 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    const { title, price, thumbnail, attributes, email, comment } = this.state;
+    const { title, price, thumbnail, attributes, email, comment, allComment } = this.state;
     return (
       <div>
         <p data-testid="product-detail-name">
@@ -111,6 +114,16 @@ class ProductDetails extends React.Component {
             Enviar
           </button>
         </form>
+        <h3>Comentarios</h3>
+        {
+          allComment.map((cmnt, i) => (
+            <Comment
+              key={ i }
+              email={ cmnt.email }
+              comment={ cmnt.comment }
+              star={ cmnt.star }
+            />))
+        }
       </div>
     );
   }
