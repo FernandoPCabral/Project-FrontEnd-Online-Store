@@ -23,7 +23,6 @@ class ProductDetails extends React.Component {
     const details = await resp.json();
     const { title, price, thumbnail, attributes } = details;
     const allComment = getAllComment(id) || [];
-    console.log("PROPS", this.props);
     this.setState({ title, price, thumbnail, attributes, id, allComment });
   }
 
@@ -52,7 +51,14 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    const { title, price, thumbnail, attributes, email, comment, allComment } = this.state;
+    const {
+      title,
+      price,
+      thumbnail,
+      attributes,
+      email,
+      comment,
+      allComment } = this.state;
     return (
       <div>
         <p data-testid="product-detail-name">
@@ -86,23 +92,58 @@ class ProductDetails extends React.Component {
             <br />
             <label htmlFor="star1">
               1
-              <input onChange={ this.handleChange } data-testid="1-rating" id="star1" type="radio" name="star" value="1" />
+              <input
+                onChange={ this.handleChange }
+                data-testid="1-rating"
+                id="star1"
+                type="radio"
+                name="star"
+                value="1"
+              />
             </label>
             <label htmlFor="star2">
               2
-              <input onChange={ this.handleChange } data-testid="2-rating" id="star2" type="radio" name="star" value="2" />
+              <input
+                onChange={ this.handleChange }
+                data-testid="2-rating"
+                id="star2"
+                type="radio"
+                name="star"
+                value="2"
+              />
             </label>
             <label htmlFor="star3">
               3
-              <input onChange={ this.handleChange } data-testid="3-rating" id="star3" type="radio" name="star" value="3" />
+              <input
+                onChange={ this.handleChange }
+                data-testid="3-rating"
+                id="star3"
+                type="radio"
+                name="star"
+                value="3"
+              />
             </label>
             <label htmlFor="star4">
               4
-              <input onChange={ this.handleChange } data-testid="4-rating" id="star4" type="radio" name="star" value="4" />
+              <input
+                onChange={ this.handleChange }
+                data-testid="4-rating"
+                id="star4"
+                type="radio"
+                name="star"
+                value="4"
+              />
             </label>
             <label htmlFor="star5">
               5
-              <input onChange={ this.handleChange } data-testid="5-rating" id="star5" type="radio" name="star" value="5" />
+              <input
+                onChange={ this.handleChange }
+                data-testid="5-rating"
+                id="star5"
+                type="radio"
+                name="star"
+                value="5"
+              />
             </label>
           </div>
           <label htmlFor="comment">
@@ -136,5 +177,4 @@ class ProductDetails extends React.Component {
     );
   }
 }
-
 export default ProductDetails;
