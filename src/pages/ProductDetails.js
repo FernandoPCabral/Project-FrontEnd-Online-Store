@@ -23,6 +23,7 @@ class ProductDetails extends React.Component {
     const details = await resp.json();
     const { title, price, thumbnail, attributes } = details;
     const allComment = getAllComment(id) || [];
+    console.log("PROPS", this.props);
     this.setState({ title, price, thumbnail, attributes, id, allComment });
   }
 
@@ -40,6 +41,13 @@ class ProductDetails extends React.Component {
       star,
       comment,
     };
+    this.setState((prev) => ({
+      email: '',
+      star: '',
+      comment: '',
+      allComment: [...prev.allComment, newComment],
+    }));
+
     setComment(id, newComment);
   }
 
