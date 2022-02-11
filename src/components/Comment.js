@@ -18,6 +18,6 @@ Comment.propTypes = {
   email: string.isRequired,
   star: string.isRequired,
   comment: string.isRequired,
-}
+};
 
 export default Comment;
