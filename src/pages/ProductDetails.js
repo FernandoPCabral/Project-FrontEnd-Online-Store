@@ -6,7 +6,9 @@ class ProductDetails extends React.Component {
 
     this.state = {
       attributes: [],
-
+      email: '',
+      star: '',
+      comment: '',
     };
   }
 
@@ -19,8 +21,18 @@ class ProductDetails extends React.Component {
     this.setState({ title, price, thumbnail, attributes });
   }
 
+  handleChange = ({ target: { name, value } }) => {
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleClick = (event) => {
+    event.preventDefault();
+  }
+
   render() {
-    const { title, price, thumbnail, attributes } = this.state;
+    const { title, price, thumbnail, attributes, email, star, comment } = this.state;
     return (
       <div>
         <p data-testid="product-detail-name">
@@ -36,6 +48,60 @@ class ProductDetails extends React.Component {
             {attribute.value_name}
           </p>
         )))}
+        <h3>Avaliações</h3>
+        <form>
+          <label htmlFor="email">
+            email:
+            <input
+              data-testid="product-detail-email"
+              id="email"
+              type="email"
+              name="email"
+              value={ email }
+              onChange={ this.handleChange }
+            />
+          </label>
+          <div>
+            Estrelas:
+            <br />
+            <label htmlFor="star1">
+              1
+              <input data-testid="1-rating" id="star1" type="radio" name="stars" value="1" />
+            </label>
+            <label htmlFor="star2">
+              2
+              <input data-testid="2-rating" id="star2" type="radio" name="stars" value="2" />
+            </label>
+            <label htmlFor="star3">
+              3
+              <input data-testid="3-rating" id="star3" type="radio" name="stars" value="3" />
+            </label>
+            <label htmlFor="star4">
+              4
+              <input data-testid="4-rating" id="star4" type="radio" name="stars" value="4" />
+            </label>
+            <label htmlFor="star5">
+              5
+              <input data-testid="5-rating" id="star5" type="radio" name="stars" value="5" />
+            </label>
+          </div>
+          <label htmlFor="comment">
+            <textarea
+              id="comment"
+              data-testid="product-detail-evaluation"
+              name="comment"
+              value={ comment }
+              onChange={ this.handleChange }
+            />
+          </label>
+          <button
+            data-testid="submit-review-btn"
+            type="submit"
+            onClick={ this.handleClick }
+          >
+            Enviar
+          </button>
+        </form>
       </div>
     );
   }
