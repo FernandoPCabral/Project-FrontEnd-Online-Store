@@ -1,7 +1,7 @@
 import React from 'react';
-import getCart from '../services/localStorage';
-// import ProductList from '../components/ProductList';
 // import PropTypes from 'prop-types';
+import { getCart } from '../services/localStorage';
+// import ProductList from '../components/ProductList';
 // import { Link } from 'react-router-dom';
 
 class Cart extends React.Component {
@@ -13,13 +13,14 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    const storage = getCart();
-    console.log(storage);
+    console.log(getCart());
   }
 
   render() {
     return (
-      <div />
+      <div>
+        ola
+      </div>
     );
   }
 }

@@ -100,7 +100,6 @@ class Home extends React.Component {
                   this.setState({
                     arrCart: [...arrCart, product],
                   });
-                  console.log(arrCart);
                   addToCart(arrCart);
                 } }
               >
