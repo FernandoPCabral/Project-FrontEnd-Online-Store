@@ -5,7 +5,7 @@ import CategoriesList from '../components/CategoriesList';
 import SearchComponent from '../components/SearchComponent';
 import ProductList from '../components/ProductList';
 import { getProductsFromCategoryAndQuery } from '../services/api';
-import { addToCart } from '../services/localStorage';
+import { addCart } from '../services/localStorage';
 
 const stateStandart = {
   category: '',
@@ -99,8 +99,8 @@ class Home extends React.Component {
                   const { arrCart } = this.state;
                   this.setState({
                     arrCart: [...arrCart, product],
-                  });
-                  addToCart(arrCart);
+                  }, () => addCart(product));
+                  console.log(arrCart);
                 } }
               >
                 Adicionar ao Carrinho
