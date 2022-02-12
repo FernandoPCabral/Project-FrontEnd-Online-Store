@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { addCart } from '../services/localStorage';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -6,7 +8,6 @@ class ProductDetails extends React.Component {
 
     this.state = {
       attributes: [],
-
     };
   }
 
@@ -16,7 +17,13 @@ class ProductDetails extends React.Component {
     const resp = await fetch(` https://api.mercadolibre.com/items/${id}`);
     const details = await resp.json();
     const { title, price, thumbnail, attributes } = details;
-    this.setState({ title, price, thumbnail, attributes });
+    this.setState({ title, price, thumbnail, attributes, details });
+  }
+
+  addToCart = () => {
+    const { details } = this.state;
+    addCart(details);
+    // console.log(details);
   }
 
   render() {
@@ -29,12 +36,23 @@ class ProductDetails extends React.Component {
           { price }
         </p>
         <img src={ thumbnail } alt={ title } />
+        <Link to="/Cart">
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ this.addToCart }
+          >
+            Carrinho
+          </button>
+        </Link>
         {attributes.map((attribute) => ((
-          <p key={ attribute.value_id }>
-            {attribute.name}
-            :
-            {attribute.value_name}
-          </p>
+          <div key={ attribute.value_id }>
+            <p>
+              {attribute.name}
+              :
+              {attribute.value_name}
+            </p>
+          </div>
         )))}
       </div>
     );

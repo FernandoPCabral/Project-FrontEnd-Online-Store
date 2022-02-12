@@ -22,6 +22,13 @@ class Home extends React.Component {
     };
   }
 
+  // componentDidMount() {
+  //   this.setState({
+  //     onInputChange: 'flor',
+  //   });
+  //   this.handleButtonClick();
+  // }
+
   // Função para a utiliação categorias
   handleCategorieChange = ({ target }) => {
     const { name, value } = target;
@@ -77,8 +84,7 @@ class Home extends React.Component {
             data-testid="shopping-cart-button"
             to="/Cart"
           >
-            Carrinho
-            <input type="button" />
+            <button type="button">Carrinho</button>
           </Link>
         </div>
         <CategoriesList onCategoryChange={ this.handleCategorieChange } />
@@ -101,7 +107,6 @@ class Home extends React.Component {
                   this.setState({
                     arrCart: [...arrCart, product],
                   }, () => addCart(product));
-                  console.log(arrCart);
                 } }
               >
                 Adicionar ao Carrinho

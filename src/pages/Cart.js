@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getCart } from '../services/localStorage';
 import ProductList from '../components/ProductList';
 
@@ -20,7 +21,16 @@ class Cart extends React.Component {
     const { cart } = this.state;
     return (
       <div>
-        {cart.length < 1 ? <span>Seu carrinho está vazio</span>
+        <Link
+          data-testid="shopping-cart-button"
+          to="/"
+        >
+          <button type="button">Carrinho</button>
+        </Link>
+        {cart.length < 1 ? (
+          <p data-testid="shopping-cart-empty-message">
+            Seu carrinho está vazio
+          </p>)
           : (cart.map((iten) => (
             <div key={ iten.id }>
               <ProductList
