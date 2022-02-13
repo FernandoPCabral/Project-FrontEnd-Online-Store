@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getCart } from '../services/localStorage';
+import { getCart, saveCart } from '../services/localStorage';
 import ProductList from '../components/ProductList';
 
 class Cart extends React.Component {
@@ -14,6 +14,48 @@ class Cart extends React.Component {
   componentDidMount() {
     this.setState({
       cart: getCart(),
+    });
+  }
+
+  componentWillUnmount() {
+    const { cart } = this.state;
+    saveCart(cart);
+  }
+
+  remove = ({ target: { id } }) => {
+    const { cart } = this.state;
+    this.setState({
+      cart: cart.filter((Item) => Item.id !== id),
+    });
+  }
+
+  plusOne = ({ target: { id } }) => {
+    const { cart } = this.state;
+    cart.forEach((item) => {
+      if (item.id === id) {
+        item.cartQuantity += 1;
+      }
+    });
+    this.setState({
+      cart,
+    });
+  }
+
+  lessOne = ({ target: { id } }) => {
+    const { cart } = this.state;
+    cart.forEach((item) => {
+      if (item.id === id) {
+        if (item.cartQuantity === 1) {
+          this.setState({
+            cart: cart.filter((Item) => Item.id !== id),
+          });
+          return 0;
+        }
+        item.cartQuantity -= 1;
+      }
+      this.setState({
+        cart,
+      });
     });
   }
 
@@ -39,6 +81,28 @@ class Cart extends React.Component {
                 price={ iten.price }
                 itemQuantity={ iten.cartQuantity }
               />
+              <button
+                id={ iten.id }
+                type="button"
+                onClick={ this.remove }
+              >
+                x
+              </button>
+              <button
+                id={ iten.id }
+                type="button"
+                onClick={ this.plusOne }
+              >
+                +
+              </button>
+              <button
+                id={ iten.id }
+                type="button"
+                onClick={ this.lessOne }
+              >
+                -
+              </button>
+              <br />
             </div>
           )))}
       </div>
