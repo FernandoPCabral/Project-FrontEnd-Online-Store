@@ -17,16 +17,16 @@ class Cart extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-    const { cart } = this.state;
-    saveCart(cart);
-  }
+  // componentWillUnmount() {
+  //   const { cart } = this.state;
+  //   saveCart(cart);
+  // }
 
   remove = ({ target: { id } }) => {
     const { cart } = this.state;
     this.setState({
       cart: cart.filter((Item) => Item.id !== id),
-    });
+    }, () => { saveCart(cart); });
   }
 
   plusOne = ({ target: { id } }) => {
@@ -38,24 +38,23 @@ class Cart extends React.Component {
     });
     this.setState({
       cart,
-    });
+    }, () => { saveCart(cart); });
   }
 
-  lessOne = ({ target: { id } }) => {
+  lessOne = (event) => {
+    const { id } = event.target;
     const { cart } = this.state;
     cart.forEach((item) => {
       if (item.id === id) {
         if (item.cartQuantity === 1) {
+          this.remove(event);
+        } else {
+          item.cartQuantity -= 1;
           this.setState({
-            cart: cart.filter((Item) => Item.id !== id),
-          });
-          return 0;
+            cart,
+          }, () => { saveCart(cart); });
         }
-        item.cartQuantity -= 1;
       }
-      this.setState({
-        cart,
-      });
     });
   }
 
