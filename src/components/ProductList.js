@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 
 class ProductList extends React.Component {
   render() {
-    const { title, thumbnail, price, name, idProduct, itemQuantity } = this.props;
+    const { title, thumbnail, price, name, idProduct, itemQuantity, query } = this.props;
     return (
       <div>
         <div data-testid={ name }>
           <Link
             data-testid="product-detail-link"
             to={ `product/${idProduct}` }
+            //to={ `product/${query}` }
           >
             {title}
           </Link>

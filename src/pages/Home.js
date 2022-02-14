@@ -71,7 +71,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { products } = this.state;
+    const { products, onInputChange } = this.state;
     return (
       <div>
         <Header />
@@ -97,6 +97,7 @@ class Home extends React.Component {
                 thumbnail={ product.thumbnail }
                 price={ product.price }
                 idProduct={ product.id }
+                query={ onInputChange }
               />
               <button
                 data-testid="product-add-to-cart"

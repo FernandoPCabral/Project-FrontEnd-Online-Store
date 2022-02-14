@@ -14,7 +14,7 @@ class ProductDetails extends React.Component {
   async componentDidMount() {
     const href = window.location.href.split('product/');
     const id = href[href.length - 1];
-    const resp = await fetch(` https://api.mercadolibre.com/items/${id}`);
+    const resp = await fetch(`https://api.mercadolibre.com/items/${id}`);
     const details = await resp.json();
     const { title, price, thumbnail, attributes } = details;
     this.setState({ title, price, thumbnail, attributes, details });
