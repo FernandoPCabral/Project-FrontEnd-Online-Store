@@ -17,7 +17,7 @@ class ProductDetails extends React.Component {
       allComment: [],
     };
   }
- 
+
   async componentDidMount() {
     const href = window.location.href.split('product/');
     const id = href[href.length - 1];
