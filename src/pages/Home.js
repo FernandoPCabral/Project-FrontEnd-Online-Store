@@ -5,6 +5,7 @@ import CategoriesList from '../components/CategoriesList';
 import SearchComponent from '../components/SearchComponent';
 import ProductList from '../components/ProductList';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import { addCart } from '../services/localStorage';
 
 const stateStandart = {
   category: '',
@@ -17,8 +18,16 @@ class Home extends React.Component {
     this.state = {
       ...stateStandart,
       products: [],
+      arrCart: [],
     };
   }
+
+  // componentDidMount() {
+  //   this.setState({
+  //     onInputChange: 'flor',
+  //   });
+  //   this.handleButtonClick();
+  // }
 
   // Função para a utiliação categorias
   handleCategorieChange = ({ target }) => {
@@ -62,7 +71,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { products } = this.state;
+    const { products, onInputChange } = this.state;
     return (
       <div>
         <Header />
@@ -75,22 +84,35 @@ class Home extends React.Component {
             data-testid="shopping-cart-button"
             to="/Cart"
           >
-            Carrinho
-            <input type="button" />
+            <button type="button">Carrinho</button>
           </Link>
         </div>
         <CategoriesList onCategoryChange={ this.handleCategorieChange } />
         { products.length < 1 ? <p>Nenhum produto foi encontrado</p>
           : products.map((product) => (
-            <ProductList
-              name="product"
-              key={ product.id }
-              title={ product.title }
-              thumbnail={ product.thumbnail }
-              price={ product.price }
-              idProduct={ product.id }
-              shipping={ product.shipping.free_shipping }
-            />
+            <div key={ product.id }>
+              <ProductList
+                name="product"
+                title={ product.title }
+                thumbnail={ product.thumbnail }
+                price={ product.price }
+                idProduct={ product.id }
+                query={ onInputChange }
+              />
+              <button
+                data-testid="product-add-to-cart"
+                type="button"
+                id={ product.id }
+                onClick={ () => {
+                  const { arrCart } = this.state;
+                  this.setState({
+                    arrCart: [...arrCart, product],
+                  }, () => addCart(product));
+                } }
+              >
+                Adicionar ao Carrinho
+              </button>
+            </div>
           ))}
       </div>
     );

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class ProductList extends React.Component {
   render() {
-    const { title, thumbnail, price, name, idProduct, shipping } = this.props;
+    const { title, thumbnail, price, name, idProduct, itemQuantity } = this.props;
     return (
       <div>
         <div data-testid={ name }>
@@ -15,8 +15,10 @@ class ProductList extends React.Component {
           >
             <img src={ thumbnail } alt={ title } />
           </Link>
-          {shipping && <p data-testid="free-shipping">Frete Gratis</p> }
+          <p data-testid="shopping-cart-product-name">{ title }</p>
+          <img src={ thumbnail } alt={ title } />
           <p>{ price }</p>
+          <p data-testid="shopping-cart-product-quantity">{ itemQuantity }</p>
         </div>
       </div>
     );
@@ -29,8 +31,7 @@ ProductList.propTypes = {
   price: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   idProduct: PropTypes.string.isRequired,
-  shipping: PropTypes.string.isRequired,
-
+  itemQuantity: PropTypes.number.isRequired,
 };
 
 export default ProductList;
