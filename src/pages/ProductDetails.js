@@ -76,15 +76,16 @@ class ProductDetails extends React.Component {
           { price }
         </p>
         <img src={ thumbnail } alt={ title } />
-        <Link to="/Cart">
-          <button
-            type="button"
-            data-testid="product-detail-add-to-cart"
-            onClick={ this.addToCart }
-          >
-            Carrinho
-          </button>
+        <Link data-testid="shopping-cart-button" to="/Cart">
+          Ir ao carrinho
         </Link>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ this.addToCart }
+        >
+          Carrinho
+        </button>
         {attributes.map((attribute) => ((
           <div key={ attribute.value_id }>
             <p>

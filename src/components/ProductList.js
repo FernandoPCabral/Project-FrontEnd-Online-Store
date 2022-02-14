@@ -8,7 +8,6 @@ class ProductList extends React.Component {
     return (
       <div>
         <div data-testid={ name }>
-          <p>{ title }</p>
           <Link
             data-testid="product-detail-link"
             to={ `product/${idProduct}` }
@@ -16,7 +15,6 @@ class ProductList extends React.Component {
             <img src={ thumbnail } alt={ title } />
           </Link>
           <p data-testid="shopping-cart-product-name">{ title }</p>
-          <img src={ thumbnail } alt={ title } />
           <p>{ price }</p>
           <p data-testid="shopping-cart-product-quantity">{ itemQuantity }</p>
         </div>
