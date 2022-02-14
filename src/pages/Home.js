@@ -5,7 +5,7 @@ import CategoriesList from '../components/CategoriesList';
 import SearchComponent from '../components/SearchComponent';
 import ProductList from '../components/ProductList';
 import { getProductsFromCategoryAndQuery } from '../services/api';
-import { addCart } from '../services/localStorage';
+import { addCart, getCart } from '../services/localStorage';
 
 const stateStandart = {
   category: '',
@@ -19,15 +19,16 @@ class Home extends React.Component {
       ...stateStandart,
       products: [],
       arrCart: [],
+      totalItens: 0,
     };
   }
 
-  // componentDidMount() {
-  //   this.setState({
-  //     onInputChange: 'flor',
-  //   });
-  //   this.handleButtonClick();
-  // }
+  componentDidMount() {
+    const cart = getCart();
+    let totalItens = 0;
+    cart.forEach((item) => { totalItens += item.cartQuantity; });
+    this.setState({ totalItens });
+  }
 
   // Função para a utiliação categorias
   handleCategorieChange = ({ target }) => {
@@ -71,7 +72,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { products, onInputChange } = this.state;
+    const { products, onInputChange, totalItens } = this.state;
     return (
       <div>
         <Header />
@@ -86,6 +87,7 @@ class Home extends React.Component {
           >
             <button type="button">Carrinho</button>
           </Link>
+          <span data-testid="shopping-cart-size">{totalItens}</span>
         </div>
         <CategoriesList onCategoryChange={ this.handleCategorieChange } />
         { products.length < 1 ? <p>Nenhum produto foi encontrado</p>
@@ -98,6 +100,7 @@ class Home extends React.Component {
                 price={ product.price }
                 idProduct={ product.id }
                 query={ onInputChange }
+                shippingFree={ product.shipping.free_shipping }
               />
               <button
                 data-testid="product-add-to-cart"
@@ -107,7 +110,9 @@ class Home extends React.Component {
                   const { arrCart } = this.state;
                   this.setState({
                     arrCart: [...arrCart, product],
-                  }, () => addCart(product));
+                  });
+                  addCart(product);
+                  this.componentDidMount();
                 } }
               >
                 Adicionar ao Carrinho

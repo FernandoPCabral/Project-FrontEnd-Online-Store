@@ -36,7 +36,7 @@ class Cart extends React.Component {
   plusOne = ({ target: { id } }) => {
     const { cart } = this.state;
     cart.forEach((item) => {
-      if (item.id === id) {
+      if (item.id === id && item.cartQuantity < item.available_quantity) {
         item.cartQuantity += 1;
       }
     });
@@ -110,6 +110,7 @@ class Cart extends React.Component {
               <br />
             </div>
           )))}
+        <Link to="/checkout" data-testid="checkout-products">checkout</Link>
       </div>
     );
   }

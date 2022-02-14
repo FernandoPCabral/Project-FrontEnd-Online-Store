@@ -4,7 +4,14 @@ import { Link } from 'react-router-dom';
 
 class ProductList extends React.Component {
   render() {
-    const { title, thumbnail, price, name, idProduct, itemQuantity } = this.props;
+    const {
+      title,
+      thumbnail,
+      price,
+      name,
+      idProduct,
+      itemQuantity,
+      shippingFree } = this.props;
     return (
       <div>
         <div data-testid={ name }>
@@ -14,6 +21,7 @@ class ProductList extends React.Component {
           >
             <img src={ thumbnail } alt={ title } />
           </Link>
+          { shippingFree && <p data-testid="free-shipping"> Frete Grátis</p>}
           <p data-testid="shopping-cart-product-name">{ title }</p>
           <p>{ price }</p>
           <p data-testid="shopping-cart-product-quantity">{ itemQuantity }</p>
@@ -30,6 +38,7 @@ ProductList.propTypes = {
   name: PropTypes.string.isRequired,
   idProduct: PropTypes.string.isRequired,
   itemQuantity: PropTypes.number.isRequired,
+  shippingFree: PropTypes.bool.isRequired,
 };
 
 export default ProductList;
