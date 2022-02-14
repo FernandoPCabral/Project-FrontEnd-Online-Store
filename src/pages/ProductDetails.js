@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { addCart } from '../services/localStorage';
+import { addCart, getCart } from '../services/localStorage';
 import { setComment, getAllComment } from '../services/commentAPI';
 import Comment from '../components/Comment';
 
@@ -15,10 +15,15 @@ class ProductDetails extends React.Component {
       comment: '',
       id: '',
       allComment: [],
+      totalItens: 0,
     };
   }
 
   async componentDidMount() {
+    const cart = getCart();
+    let totalItens = 0;
+    cart.forEach((item) => { totalItens += item.cartQuantity; });
+    this.setState({ totalItens });
     const href = window.location.href.split('product/');
     const id = href[href.length - 1];
     const resp = await fetch(`https://api.mercadolibre.com/items/${id}`);
@@ -32,6 +37,7 @@ class ProductDetails extends React.Component {
   addToCart = () => {
     const { details } = this.state;
     addCart(details);
+    this.componentDidMount();
     // console.log(details);
   }
 
@@ -67,7 +73,8 @@ class ProductDetails extends React.Component {
       attributes,
       email,
       comment,
-      allComment } = this.state;
+      allComment,
+      totalItens } = this.state;
     return (
       <div>
         <p data-testid="product-detail-name">
@@ -79,6 +86,7 @@ class ProductDetails extends React.Component {
         <Link data-testid="shopping-cart-button" to="/Cart">
           Ir ao carrinho
         </Link>
+        <span data-testid="shopping-cart-size">{totalItens}</span>
         <button
           type="button"
           data-testid="product-detail-add-to-cart"

@@ -18,7 +18,7 @@ class Checkout extends React.Component {
           <br />
           <label htmlFor="cpf">
             CPF
-            <input id="cpf" type="number" data-testid="checkout-cpf" />
+            <input id="cpf" type="text" data-testid="checkout-cpf" />
           </label>
           <br />
           <label htmlFor="phone">
