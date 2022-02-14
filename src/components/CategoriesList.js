@@ -22,7 +22,7 @@ class CategoriesList extends React.Component {
       onCategoryChange,
     } = this.props;
     const { listCategories } = this.state;
-    console.log(listCategories);
+    // console.log(listCategories);
     return (
       <div>
         <h3> Categorias </h3>
