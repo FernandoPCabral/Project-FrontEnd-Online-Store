@@ -1,6 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { addCart } from '../services/localStorage';
 import { setComment, getAllComment } from '../services/commentAPI';
 import Comment from '../components/Comment';
+
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -19,11 +22,18 @@ class ProductDetails extends React.Component {
   async componentDidMount() {
     const href = window.location.href.split('product/');
     const id = href[href.length - 1];
-    const resp = await fetch(` https://api.mercadolibre.com/items/${id}`);
+    const resp = await fetch(`https://api.mercadolibre.com/items/${id}`);
     const details = await resp.json();
     const { title, price, thumbnail, attributes } = details;
+
     const allComment = getAllComment(id) || [];
-    this.setState({ title, price, thumbnail, attributes, id, allComment });
+    this.setState({ title, price, thumbnail, attributes, id, allComment, details });
+  }
+  
+  addToCart = () => {
+    const { details } = this.state;
+    addCart(details);
+    // console.log(details);
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -67,12 +77,23 @@ class ProductDetails extends React.Component {
           { price }
         </p>
         <img src={ thumbnail } alt={ title } />
+        <Link to="/Cart">
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ this.addToCart }
+          >
+            Carrinho
+          </button>
+        </Link>
         {attributes.map((attribute) => ((
-          <p key={ attribute.value_id }>
-            {attribute.name}
-            :
-            {attribute.value_name}
-          </p>
+          <div key={ attribute.value_id }>
+            <p>
+              {attribute.name}
+              :
+              {attribute.value_name}
+            </p>
+          </div>
         )))}
         <h3>Avaliações</h3>
         <form>
