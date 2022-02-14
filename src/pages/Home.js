@@ -89,6 +89,7 @@ class Home extends React.Component {
               thumbnail={ product.thumbnail }
               price={ product.price }
               idProduct={ product.id }
+              shipping={ product.shipping.free_shipping }
             />
           ))}
       </div>

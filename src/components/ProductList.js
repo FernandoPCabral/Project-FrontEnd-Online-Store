@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom';
 
 class ProductList extends React.Component {
   render() {
-    const { title, thumbnail, price, name, idProduct } = this.props;
+    const { title, thumbnail, price, name, idProduct, shipping } = this.props;
     return (
       <div>
         <div data-testid={ name }>
+          <p>{ title }</p>
           <Link
             data-testid="product-detail-link"
             to={ `product/${idProduct}` }
           >
-            {title}
+            <img src={ thumbnail } alt={ title } />
           </Link>
-          <p>{ title }</p>
-          <img src={ thumbnail } alt={ title } />
+          {shipping && <p data-testid="free-shipping">Frete Gratis</p> }
           <p>{ price }</p>
         </div>
       </div>
@@ -29,6 +29,8 @@ ProductList.propTypes = {
   price: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   idProduct: PropTypes.string.isRequired,
+  shipping: PropTypes.string.isRequired,
+
 };
 
 export default ProductList;
