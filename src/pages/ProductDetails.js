@@ -4,7 +4,6 @@ import { addCart } from '../services/localStorage';
 import { setComment, getAllComment } from '../services/commentAPI';
 import Comment from '../components/Comment';
 
-
 class ProductDetails extends React.Component {
   constructor() {
     super();
@@ -29,7 +28,7 @@ class ProductDetails extends React.Component {
     const allComment = getAllComment(id) || [];
     this.setState({ title, price, thumbnail, attributes, id, allComment, details });
   }
-  
+
   addToCart = () => {
     const { details } = this.state;
     addCart(details);

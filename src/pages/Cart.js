@@ -23,7 +23,7 @@ class Cart extends React.Component {
   }
 
   remove = ({ target: { id } }) => {
-    const { cart } = this.state;
+    // const { cart } = this.state;
     // this.setState({
     //   cart: cart.filter((Item) => Item.id !== id),
     // }, () => { saveCart(cart); });
